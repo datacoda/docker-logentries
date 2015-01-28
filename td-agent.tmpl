@@ -1,19 +1,14 @@
 # Dynamically generated configuration
 
-{{ $token_parts := split .Env.TOKEN "-" }}
-{{ $filter_key := replace .Env.LOG_FILTERS "," "-" 9999 }}
-{{ $filters := split .Env.LOG_FILTERS "," }}
-{{ range $key, $value := $ }}
-    {{ $logs := $value.Env.LOG_FILES }}
-    {{ if $logs }}
-        {{ range $index, $logfile := split $logs "," }}
-            {{ if eq $logfile (closest $filters $logfile) }}
+{{ $logpos_token := split .Env.TOKEN "-" }}
+{{ $logpos_filter := replace .Env.LOG_FILTERS "," "-" 9999 }}
+{{ range $value := whereSomeMatch $ "Env.LOG_FILES" "," (split .Env.LOG_FILTERS ",") }}
 <source>
     type tail
     format json
     time_key time
     path /var/lib/docker/containers/{{ $value.ID }}/{{ $value.ID }}-json.log
-    pos_file /var/lib/docker/containers/{{ $value.ID }}/{{ index $token_parts 0 }}-{{ $filter_key }}-json.log.pos
+    pos_file /var/lib/docker/containers/{{ $value.ID }}/{{ index $logpos_token 0 }}-{{ $logpos_filter }}-json.log.pos
     tag docker.container.json.{{ $value.ID }}
     rotate_wait 5
 </source>
@@ -27,9 +22,6 @@
         container_image {{ $value.Image }}
     </record>
 </match>
-            {{ end }}
-        {{ end }}
-    {{ end }}
 {{ end }}
 
 <match tag docker.container.jsonmeta>
