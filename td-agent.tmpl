@@ -2,7 +2,7 @@
 
 {{ $logpos_token := split .Env.TOKEN "-" }}
 {{ $logpos_filter := replace .Env.LOG_FILTERS "," "-" 9999 }}
-{{ range $value := whereSomeMatch $ "Env.LOG_FILES" "," (split .Env.LOG_FILTERS ",") }}
+{{ range $value := whereAny $ "Env.LOG_FILES" "," (split .Env.LOG_FILTERS ",") }}
 <source>
     type tail
     format json
