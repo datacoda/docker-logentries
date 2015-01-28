@@ -1,6 +1,9 @@
 dataferret/logentries
 =====================
 
+![Latest tag](https://img.shields.io/github/tag/dataferret/docker-logentries.svg?style=flat)
+![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+
 This container looks for an environment variable LOG_FILES on any container
 that wishes to have its logs exported to logentries.  Multiple logentries can be run,
 each with their own LOG_FILTERS that capture specific LOG_FILES.
@@ -15,8 +18,7 @@ The output stream to Logentries is json formatted and includes container_image a
           "container_image": "dataferret/bot"
         }
 
-Usage
-=====
+### Usage
 
 Just start the container and bind it to the docker socket.
 
@@ -35,8 +37,7 @@ matter since it'll reconfigure itself on docker events. For containers to be log
         docker run -d -e LOG_FILES=Bots,Web nginx:latest
 
 
-Raison d'Etre
-=============
+### Raison d'Etre
 
 Primarily, if one sets up an interactive docker host where an occasional
 
@@ -52,8 +53,7 @@ uses. This container sits somewhere in the middle of being slightly automagical,
 not too overzealous on shipping everything.
 
 
-Notes
-=====
+### Notes
 
 The container tails the standard docker logs.  It will keep a position log of the tail
 as a file within the /var/lib/docker/container/*/ encoded based on a partial TOKEN and
@@ -65,3 +65,6 @@ Special thanks to [jwilder/docker-gen](https://github.com/jwilder/docker-gen) an
 [gregory90/fluent-logentries](https://github.com/gregory90/docker-fluent-logentries)
 for giving me the idea.
 
+### License
+
+MIT
