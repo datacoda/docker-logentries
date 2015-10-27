@@ -1,3 +1,8 @@
+> DEPRECATED
+> ==========
+> Suggest you use logentries/docker-logentries which has similar functionality and is officially supported.
+
+
 dataferret/logentries
 =====================
 
