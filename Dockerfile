@@ -37,3 +37,8 @@ RUN chmod 750 /etc/my_init.d/init_config.sh \
 
 # Listen socket to docker events
 ENV DOCKER_HOST unix:///tmp/docker.sock
+
+# PATCH: Temporary build from https://github.com/jwilder/docker-gen
+# commit ad1745404577a1162984d58a125f325e5318a296
+COPY patch/docker-gen /usr/local/bin/docker-gen
+RUN chmod 755 /usr/local/bin/docker-gen
