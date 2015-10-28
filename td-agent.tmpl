@@ -19,7 +19,7 @@
     <record>
         container_id {{printf "%.*s" 12 $value.ID}}
         container_name {{ $value.Name }}
-        container_image {{ $value.Image }}
+        container_image "{{ $value.Image.Registry }}/{{ $value.Image.Repository }}"
     </record>
 </match>
 {{ end }}
